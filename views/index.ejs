@@ -1,14 +1,116 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h2>Page 1</h2>
-    <a href="/">Home</a>
+<head>
+  <title>Your Web App</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+   .image-container {
+      display: flex;
     
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-  </body>
+      justify-content: center ;
+      align-items: center space-around;
+      margin-top:10%;
+      padding: 10px;
+      gap: 30px;
+      
+    }
+
+    .image-container img {
+      flex: 1;
+      margin: 10px;
+      max-width: 200px;
+      cursor: pointer; /* Add a pointer cursor to indicate clickability */
+    }
+  </style>
+
+</head>
+
+<body style="background: linear-gradient(135deg, #0073e6, #3a50e2);">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Your App Name</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <!-- Sub Navigation for Students -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="studentsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Students
+          </a>
+          <div class="dropdown-menu" aria-labelledby="studentsDropdown">
+            <a class="dropdown-item" href="/addStudent">Add Student</a>
+            <a class="dropdown-item" href="/studentsList">List Students</a>
+          </div>
+        </li>
+        <!-- Sub Navigation for Interviews -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="interviewsDropdown" role a-button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Interviews
+          </a>
+          <div class="dropdown-menu" aria-labelledby="interviewsDropdown">
+            <a class="dropdown-item" href="/interviews/create">Add Interview</a>
+            <a class="dropdown-item" href="/interviews">List Interviews</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Signup</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="interviewsDropdown" role a-button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Student-Interview Allocation
+          </a>
+          <div class="dropdown-menu" aria-labelledby="interviewsDropdown">
+            <a class="dropdown-item" href="/allocate-student">Allocate</a>
+            <a class="dropdown-item" href="/view-allocated-students">View</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/export-csv">Download CSV Data</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  
+  <!-- Content -->
+  <div class="container mt-5" style="background: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+    <!-- Replace this section with your application's content -->
+    <h1>Welcome to Your Web App</h1>
+    <!-- Include content for the Home, Students, and Interviews sections -->
+  </div>
+    <div class="image-container">
+      <a href="/studentsList">
+        <img src="/images/stu.jpg" alt="Image 1">
+      </a>
+      <a href="/interviews">
+        <img src="/images/int.jpg" alt="Image 2">
+      </a>
+      <a href="/">
+        <img src="/images/job.jpg" alt="Image 1">
+      </a>
+      <a href="/export-csv">
+        <img src="/images/csv.jpg" height=" 133.33px" width="200px" alt="Image 2">
+      </a>
+    </div>
+  
+ 
+
+  <!-- Include Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

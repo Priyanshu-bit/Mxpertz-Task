@@ -1,25 +1,82 @@
+<!-- allocate.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Allocate Student</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        select {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <form method="POST" action="/allocate-student">
-       <label for="interview">Select Interview:</label>
-<select name="interview" required>
-  <% interviews.forEach(function(interview) { %>
-    <option value="<%= interview._id %>"><%= interview.companyName %> - <%= interview.position %></option>
-  <% }); %>
-</select>
+    <form method="POST">
+        <h2>Allocate Student</h2>
+        <label for="interview">Select Interview:</label>
+        <select name="interview" required>
+            <% interviews.forEach(function(interview) { %>
+                <option value="<%= interview._id %>"><%= interview.companyName %> - <%= interview.position %></option>
+            <% }); %>
+        </select>
 
-        <br>
-        <label for="studentName">Student Name:</label>
-        <input type="text" name="studentName" required>
-        <br>
+        <label for="student">Select Student:</label>
+        <select name="studentName" required>
+            <% students.forEach(function(student) { %>
+                <option value="<%= student._id %>"><%= student.name %></option>
+            <% }); %>
+        </select>
+
+        <label for="status">Status:</label>
+        <select name="status" required>
+            <option value="Pass">Pass</option>
+            <option value="Fail">Fail</option>
+            <option value="Pending">Pending</option>
+        </select>
+
         <button type="submit">Allocate Student</button>
-      </form>
-      
+    </form>
 </body>
 </html>

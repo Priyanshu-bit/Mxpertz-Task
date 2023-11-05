@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
+const mongoose  = require('mongoose')
+
 const database = require("./database/database.js");
 const { connectMongoose } = database;
-
+const fs = require('fs');
+const fastcsv = require('fast-csv');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const ejs = require("ejs");
 const path = require("path");
 const passport = require("passport");
@@ -12,6 +16,7 @@ const User = require("./models/User.js");
 const Interview = require("./models/Interview.js");
 const Student = require("./models/student.js");
 const cors = require('cors');
+const Result =require("./models/allocation.js") ;
 
 
 
@@ -40,12 +45,82 @@ app.use(passport.session());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.get('/export-csv', async (req, res) => {
+  try {
+    // Query data from both models (collections)
+    const students = await Student.find();
+    const interviews = await Interview.find();
+    const allocation = await Result.find();
+    
+
+    // Initialize an array to store the combined data
+    const combinedData = [];
+
+    // Iterate through both datasets and combine them
+    students.forEach(student => {
+      interviews.forEach(interview => {
+        combinedData.push({
+          studentId: student.student_id,
+          studentName: student.name,
+          studentCollege: student.college,
+          studentStatus: student.status,
+          interviewDate: interview.date,
+          interviewCompany: interview.companyName,
+          interviewStudentResult:allocation.status|| 'N/A'
+        });
+      });
+    });
+
+    // Define the CSV file path and name
+    const csvFilePath = 'data.csv';
+
+    const csvWriter = createCsvWriter({
+      path: csvFilePath,
+      header: [
+        { id: 'studentId', title: 'Student ID' },
+        { id: 'studentName', title: 'Student Name' },
+        { id: 'studentCollege', title: 'Student College' },
+        { id: 'studentStatus', title: 'Student Status' },
+        { id: 'interviewDate', title: 'Interview Date' },
+        { id: 'interviewCompany', title: 'Interview Company' },
+        { id: 'interviewStudentResult', title: 'Interview Student Result' }
+      ]
+    });
+
+    // Write the data to the CSV file
+    csvWriter.writeRecords(combinedData)
+      .then(() => {
+        // Send the CSV file as a response
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', 'attachment; filename="data.csv"');
+        res.download(csvFilePath, 'data.csv', (err) => {
+          if (err) {
+            console.error('Error sending CSV:', err);
+            res.status(500).send('Internal Server Error');
+          }
+        });
+      });
+
+  } catch (error) {
+    console.error('Error exporting data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
+
+
 
 
 
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+
+
 
 app.post("/register", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
@@ -122,9 +197,15 @@ app.post('/submit', (req, res) => {
           res.send('Error saving the student.'); // Handle errors appropriately
       });
 });
+app.get('/logout', (req, res) => {
+  // Call req.logout() to terminate the user's login session
+  
+  // Redirect the user to a login or home page
+  res.redirect('/');
+});
 
 
-app.get('/students', async (req, res) => {
+app.get('/studentsList', async (req, res) => {
   try {
       // Fetch the list of students from the database
       const students = await Student.find({}).exec();
@@ -183,39 +264,91 @@ app.get('/interviews', (req, res) => {
       // Handle errors or show an error message
     });
 });
+app.get('/view-interviews', async (req, res) => {
+  try {
+    // Fetch interviews along with allocated students
+    const interviews = await Interview.find().populate('allocatedStudents');
+
+    res.json(interviews);
+  } catch (err) {
+    console.error('Error fetching interviews:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 
 
-app.get('/allocate-student', (req, res) => {
-  Interview.find({}).exec() // Use .exec() to return a promise
-    .then((interviews) => {
-      res.render('allocate', { title: 'Allocate Student', interviews });
-    })
-    .catch((error) => {
-      console.error('Error retrieving interviews:', error);
-      // Handle errors or show an error message
+
+app.get('/allocate-student', async (req, res) => {
+  try {
+    const students = await Student.find({}); // Fetch the list of students from your database
+
+    const interviews = await Interview.find({}).exec(); // Fetch the list of interviews
+
+    res.render('allocate', { title: 'Allocate Student', interviews, students });
+  } catch (error) {
+    console.error('Error retrieving data:', error);
+    // Handle errors or show an error message
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+// Import the "Result" model
+
+app.post('/allocate-student', async (req, res) => {
+  const { interview, studentName, status } = req.body;
+
+  try {
+    // Create a new "Result" document
+    const newResult = new Result({
+      interview: interview, // Assuming interview is a valid ObjectId
+      student: studentName, // Assuming studentName is a valid ObjectId
+      status: status, // Should be 'Pass', 'Fail', or 'Pending'
     });
+
+    // Save the new "Result" document to the database
+    await newResult.save();
+
+    console.log('Student allocated to interview:', newResult);
+
+    // Redirect to the 'view-allocated-students' route
+    res.redirect('/view-allocated-students');
+
+  } catch (err) {
+    console.error('Error allocating student:', err);
+    // Handle errors or show an error message
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
-app.post('/allocate-student', (req, res) => {
-  const { interview, studentName } = req.body;
 
-  // Find the selected interview by its ID and update it
-  Interview.findOneAndUpdate(
-    { _id: interview },
-    { $push: { allocatedStudents: studentName } },
-    (err, interview) => {
-      if (err) {
-        console.error('Error allocating student:', err);
-        // Handle errors or show an error message
-      } else {
-        console.log('Student allocated to interview:', interview);
-        // Redirect to a success page or display a success message
-      }
-    }
-  );
+
+
+
+
+
+
+
+app.get('/view-allocated-students', async (req, res) => {
+  try {
+    // Fetch the list of allocated students and their details from the database
+    const allocatedStudents = await Result.find()
+      .populate('interview')
+      .populate('student')
+      .exec();
+
+    res.render('result', { title: 'View Allocated Students', allocatedStudents });
+  } catch (error) {
+    console.error('Error retrieving allocated students:', error);
+    // Handle errors or show an error message
+    res.status(500).send('Internal Server Error');
+  }
 });
+
+
 
 
 
