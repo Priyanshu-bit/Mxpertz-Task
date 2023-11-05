@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/studentList.css">
+</head>
+<body>
+    <h1>Student List</h1>
+    <div class="students-container">
+        <% students.forEach((student, index) => { %>
+            <div class="card">
+                <h2>Student <%= index + 1 %></h2>
+                <ul>
+                    <li>Name: <%= student.name ? student.name : 'N/A' %></li>
+                    <li>College: <%= student.college ? student.college : 'N/A' %></li>
+                    <li>Status: <%= student.status ? student.status : 'N/A' %></li>
+                    <li>DSA Final Score: <%= student.courseScores ? (student.courseScores.dsaFinalScore ? student.courseScores.dsaFinalScore : 'N/A') : 'N/A' %></li>
+                    <li>WebD Final Score: <%= student.courseScores ? (student.courseScores.webDFinalScore ? student.courseScores.webDFinalScore : 'N/A') : 'N/A' %></li>
+                    <li>React Final Score: <%= student.courseScores ? (student.courseScores.reactFinalScore ? student.courseScores.reactFinalScore : 'N/A') : 'N/A' %></li>
+                    <li>Interviews: 
+                        <ul>
+                            <% if (student.interviews && student.interviews.length > 0) { %>
+                                <% student.interviews.forEach(interview => { %>
+                                    <li>Company: <%= interview.company ? interview.company : 'N/A' %></li>
+                                    <li>Date: <%= interview.date ? interview.date : 'N/A' %></li>
+                                <% }); %>
+                            <% } else { %>
+                                <li>No interviews available.</li>
+                            <% } %>
+                        </ul>
+                    </li>
+                    <li>Results: 
+                        <ul>
+                            <% if (student.results && student.results.length > 0) { %>
+                                <% student.results.forEach(result => { %>
+                                    <li>Company: <%= result.company ? result.company : 'N/A' %></li>
+                                    <li>Result: <%= result.result ? result.result : 'N/A' %></li>
+                                <% }); %>
+                            <% } else { %>
+                                <li>No results available.</li>
+                            <% } %>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        <% }); %>
+    </div>
+    <a href="/addStudent">Add Student</a>
+</body>
+</html>

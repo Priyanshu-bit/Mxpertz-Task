@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Interview</title>
+</head>
+<body>
+  <h1>Add Interview</h1>
+  <form method="POST" action="/interviews/create">
+    <label for="companyName">Company Name:</label>
+    <input type="text" name="companyName" required><br>
+    <label for="position">Position:</label>
+    <input type="text" name="position" required><br>
+    <label for="techStack">Tech Stack:</label>
+    <input type="text" name="techStack" required><br>
+    <label for="salary">Salary:</label>
+    <input type="number" name="salary" required><br>
+    <label for="jobDescription">Job Description:</label>
+    <textarea name="jobDescription" required></textarea><br>
+    <label for="date">Date:</label>
+    <input type="date" name="date" required><br>
+    <button type="submit">Add Interview</button>
+  </form>
+</body>
+</html>

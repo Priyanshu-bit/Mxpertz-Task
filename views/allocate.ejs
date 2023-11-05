@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/allocate-student">
+       <label for="interview">Select Interview:</label>
+<select name="interview" required>
+  <% interviews.forEach(function(interview) { %>
+    <option value="<%= interview._id %>"><%= interview.companyName %> - <%= interview.position %></option>
+  <% }); %>
+</select>
+
+        <br>
+        <label for="studentName">Student Name:</label>
+        <input type="text" name="studentName" required>
+        <br>
+        <button type="submit">Allocate Student</button>
+      </form>
+      
+</body>
+</html>
