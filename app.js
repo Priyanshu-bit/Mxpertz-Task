@@ -8,7 +8,7 @@ const path = require("path");
 const passport = require("passport");
 const { initializingPassport, isauthenticated } = require("./passConfig.js");
 const expressSession = require("express-session");
-const User = require("./models/user.js");
+const User = require("./models/User.js");
 const Interview = require("./models/Interview.js");
 const Student = require("./models/student.js");
 const cors = require('cors');
@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/api/register", async (req, res) => {
+app.post("/register", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   if (user) return res.status(400).send("User already exists");
   const newUser = await User.create(req.body);
@@ -61,7 +61,7 @@ app.get("/register", (req, res) => {
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/profile", // Redirect on successful login
+    successRedirect:"/profile", // Redirect on successful login
     failureRedirect: "/register", // Redirect on failed login
   })
 );
@@ -71,7 +71,8 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/profile", isauthenticated, (req, res) => {
-  res.send(req.user);
+  const userName = req.user.name; // Assuming the user's name is stored in the 'username' field of the user object
+  res.render("profile", { name: userName }); 
 });
 
 
