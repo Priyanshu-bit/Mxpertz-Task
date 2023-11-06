@@ -3,40 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Student List</title>
-    <link rel="stylesheet" type="text/css" href="./stylesheets/studentList.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+    <style>
+        body {
+            background-color: #281010;
+            font-family: Arial, sans-serif;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        a {
+            background-color: #0073e6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #0073e6;
+        }
+
+        .students-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            text-align: left;
+        }
+
+        .card h2 {
+            color: #0073e6;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
+    
     <h1>Student List</h1>
     <div class="students-container">
         <% students.forEach((student, index) => { %>
             <div class="card">
                 <h2>Student <%= index + 1 %></h2>
                 <ul>
-                    <li>Name: <%= student.name ? student.name : 'N/A' %></li>
-                    <li>College: <%= student.college ? student.college : 'N/A' %></li>
-                    <li>Status: <%= student.status ? student.status : 'N/A' %></li>
-                    <li>DSA Final Score: <%= student.courseScores ? (student.courseScores.dsaFinalScore ? student.courseScores.dsaFinalScore : 'N/A') : 'N/A' %></li>
-                    <li>WebD Final Score: <%= student.courseScores ? (student.courseScores.webDFinalScore ? student.courseScores.webDFinalScore : 'N/A') : 'N/A' %></li>
-                    <li>React Final Score: <%= student.courseScores ? (student.courseScores.reactFinalScore ? student.courseScores.reactFinalScore : 'N/A') : 'N/A' %></li>
-                    <li>Interviews: 
+                    <li><strong>Name:</strong> <%= student.name ? student.name : 'N/A' %></li>
+                    <li><strong>College:</strong> <%= student.college ? student.college : 'N/A' %></li>
+                    <li><strong>Status:</strong> <%= student.status ? student.status : 'N/A' %></li>
+                    <li><strong>DSA Final Score:</strong> <%= student.courseScores ? (student.courseScores.dsaFinalScore ? student.courseScores.dsaFinalScore : 'N/A') : 'N/A' %></li>
+                    <li><strong>WebD Final Score:</strong> <%= student.courseScores ? (student.courseScores.webDFinalScore ? student.courseScores.webDFinalScore : 'N/A') : 'N/A' %></li>
+                    <li><strong>React Final Score:</strong> <%= student.courseScores ? (student.courseScores.reactFinalScore ? student.courseScores.reactFinalScore : 'N/A') : 'N/A' %></li>
+                    <li><strong>Interviews:</strong>
                         <ul>
                             <% if (student.interviews && student.interviews.length > 0) { %>
                                 <% student.interviews.forEach(interview => { %>
-                                    <li>Company: <%= interview.company ? interview.company : 'N/A' %></li>
-                                    <li>Date: <%= interview.date ? interview.date : 'N/A' %></li>
+                                    <li><strong>Company:</strong> <%= interview.company ? interview.company : 'N/A' %></li>
+                                    <li><strong>Date:</strong> <%= interview.date ? interview.date : 'N/A' %></li>
                                 <% }); %>
                             <% } else { %>
                                 <li>No interviews available.</li>
                             <% } %>
                         </ul>
                     </li>
-                    <li>Results: 
+                    <li><strong>Results:</strong>
                         <ul>
                             <% if (student.results && student.results.length > 0) { %>
                                 <% student.results.forEach(result => { %>
-                                    <li>Company: <%= result.company ? result.company : 'N/A' %></li>
-                                    <li>Result: <%= result.result ? result.result : 'N/A' %></li>
+                                    <li><strong>Company:</strong> <%= result.company ? result.company : 'N/A' %></li>
+                                    <li><strong>Result:</strong> <%= result.result ? result.result : 'N/A' %></li>
                                 <% }); %>
                             <% } else { %>
                                 <li>No results available.</li>

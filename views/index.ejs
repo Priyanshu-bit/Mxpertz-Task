@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your Web App</title>
+  <title>Student Portal</title>
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
@@ -15,12 +15,26 @@
       gap: 30px;
       
     }
+    .image-item {
+  flex: 1;
+  margin: 2px; /* Adjust the margin value to control the gap */
+  text-align: center;
+}
+
+.image-item img {
+  max-width: 200px;
+  cursor: pointer;
+}
 
     .image-container img {
       flex: 1;
       margin: 10px;
       max-width: 200px;
       cursor: pointer; /* Add a pointer cursor to indicate clickability */
+    }
+    .navbar navbar-expand-lg navbar-light bg-light{
+      font-weight: 500;
+
     }
   </style>
 
@@ -29,7 +43,7 @@
 <body style="background: linear-gradient(135deg, #0073e6, #3a50e2);">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Your App Name</a>
+    <a class="navbar-brand" href="/">Student Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -66,6 +80,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/register">Signup</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="interviewsDropdown" role a-button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,10 +93,15 @@
             <a class="dropdown-item" href="/view-allocated-students">View</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/job-search">JOB- Portal</a>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="/export-csv">Download CSV Data</a>
         </li>
+
+        
       </ul>
     </div>
   </nav>
@@ -91,20 +113,32 @@
     <h1>Welcome to Your Web App</h1>
     <!-- Include content for the Home, Students, and Interviews sections -->
   </div>
-    <div class="image-container">
+  <div class="image-container">
+    <div class="image-item">
       <a href="/studentsList">
-        <img src="/images/stu.jpg" alt="Image 1">
+        <img src="/images/stu.jpg"  height="150px" width="600px" alt="Image 1">
       </a>
-      <a href="/interviews">
-        <img src="/images/int.jpg" alt="Image 2">
-      </a>
-      <a href="/">
-        <img src="/images/job.jpg" alt="Image 1">
-      </a>
-      <a href="/export-csv">
-        <img src="/images/csv.jpg" height=" 133.33px" width="200px" alt="Image 2">
-      </a>
+       <p><strong>Students </strong></p>
     </div>
+    <div class="image-item">
+      <a href="/interviews">
+        <img src="/images/int.jpg"  height="150px" width="600px" alt="Image 2">
+      </a>
+        <p><strong>Interviews</strong></p>
+    </div>
+    <div class="image-item">
+      <a href="/job-search">
+        <img src="/images/job.jpg" height="150px" width="600px" alt="Image 1">
+      </a>
+      <p><strong>Jobs</strong></p>
+    </div>
+    <div class="image-item">
+      <a href="/export-csv">
+        <img src="/images/csv.jpg" height="150px" width="600px" alt="Image 2">
+      </a>
+      <p><strong>CSV Data</strong></p>
+    </div>
+  </div>
   
  
 

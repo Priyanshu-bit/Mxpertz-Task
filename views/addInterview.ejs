@@ -6,7 +6,12 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f0f0f0;
+      background-color: #9ac0b2;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     h1 {
@@ -14,15 +19,18 @@
       color: #fff;
       padding: 10px;
       border-radius: 5px;
+      width: 300px;
+      margin: 0 auto;
     }
 
     form {
       background-color: #fff;
-      padding: 50px;
+      padding: 35px;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       width: 300px;
-      margin: 0 auto;
+      margin: 10px auto;
+      text-align: left;
     }
 
     label {
@@ -63,7 +71,7 @@
     <label for="companyName">Company Name:</label>
     <input type="text" name="companyName" required><br>
     <label for="position">Position:</label>
-    <input type="text" name "position" required><br>
+    <input type="text" name="position" required><br>
     <label for="techStack">Tech Stack:</label>
     <input type="text" name="techStack" required><br>
     <label for="salary">Salary:</label>

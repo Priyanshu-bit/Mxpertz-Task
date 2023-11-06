@@ -1,0 +1,35 @@
+<!-- job.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Details</title>
+</head>
+<body>
+    <h1>Job Details</h1>
+
+    <% if (job_required_education.postgraduate_degree) { %>
+        <p>Postgraduate Degree Required</p>
+    <% }
+    if (job_required_education.professional_certification) { %>
+        <p>Professional Certification Required</p>
+    <% }
+    if (job_required_education.high_school) { %>
+        <p>High School Education Required</p>
+    <% }
+    if (job_required_education.associates_degree) { %>
+        <p>Associate's Degree Required</p>
+    <% }
+    if (job_required_education.bachelors_degree) { %>
+        <p>Bachelor's Degree Required</p>
+    <% }
+    if (job_required_education.degree_mentioned) { %>
+        <p>Degree Mentioned</p>
+    <% }
+    if (job_required_education.degree_preferred) { %>
+        <p>Degree Preferred</p>
+    <% }
+    if (job_required_education.professional_certification_mentioned) { %>
+        <p>Professional Certification Mentioned</p>
+    <% } %>
+</body>
+</html>

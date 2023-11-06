@@ -6,29 +6,54 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f0f0f0;
+      background: rgb(210, 154, 81);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-evenly;
+      justify-content: center;
     }
 
     .card {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      background: #d8d0d0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
       padding: 20px;
-      margin: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       width: 300px;
       text-align: left;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
     }
 
     h1 {
-      background-color: #007BFF;
+      background: #007BFF;
       color: #fff;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 25px;
+      margin-left: 40px;
+      margin-right: 40px;
+      border-radius: 8px;
       width: 100%;
+    }
+
+    a {
+      background: #007BFF;
+      color: #fff;
+      padding: 25px;
+      margin-left: 20px;
+      margin-right: 0px;
+      border-radius: 8px;
+      width: 50%;
     }
 
     strong {
@@ -38,17 +63,20 @@
 </head>
 <body>
   <h1>List of Interviews</h1>
-  <ul>
+ 
+  <div class="container">
     <% interviews.forEach(function(interview) { %>
-      <li class="card">
+      <div class="card">
         <strong>Company Name:</strong> <%= interview.companyName %><br>
         <strong>Position:</strong> <%= interview.position %><br>
         <strong>Tech Stack:</strong> <%= interview.techStack.join(', ') %><br>
         <strong>Salary:</strong> $<%= interview.salary %><br>
         <strong>Date:</strong> <%= interview.date.toDateString() %><br>
         <strong>Job Description:</strong> <%= interview.jobDescription %><br>
-      </li>
+      </div>
     <% }); %>
-  </ul>
+  
+  <a href="/interview-create">Add Interviews</a>
+</div>
 </body>
 </html>
